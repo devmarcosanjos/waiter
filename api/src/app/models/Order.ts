@@ -5,7 +5,7 @@ export const Order = model(
   new Schema({
     table: {
       type: String,
-      require: true,
+      required: true,
     },
     status: {
       type: String,
@@ -17,11 +17,12 @@ export const Order = model(
       default: Date.now,
     },
     products: {
+      required: true,
       type: [
         {
           product: {
             type: Schema.Types.ObjectId,
-            require: true,
+            required: true,
             ref: "Product",
           },
           quantity: {
@@ -30,7 +31,6 @@ export const Order = model(
           },
         },
       ],
-      require: true,
     },
   })
 );

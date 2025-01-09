@@ -5,31 +5,31 @@ export const Product = model(
   new Schema({
     name: {
       type: String,
-      require: true,
+      required: true,
     },
     description: {
       type: String,
-      require: true,
+      required: true,
     },
     imagePath: {
       type: String,
-      require: true,
+      required: true,
     },
     price: {
       type: Number,
-      require: true,
+      required: true,
     },
     ingredients: {
-      require: true,
+      required: true,
       type: [
         {
           name: {
             type: String,
-            require: true,
+            required: true,
           },
           icon: {
             type: String,
-            require: true,
+            required: true,
           },
         },
       ],
@@ -37,7 +37,7 @@ export const Product = model(
 
     category: {
       type: Schema.Types.ObjectId,
-      require: true,
+      required: true,
       ref: "Category",
     },
   })
