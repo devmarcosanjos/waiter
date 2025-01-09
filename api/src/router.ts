@@ -6,6 +6,7 @@ import { listProducts } from "./app/useCases/products/listProducts";
 
 import multer from "multer";
 import path from "node:path";
+import { listProductsByCategory } from "./app/useCases/categories/listProductsByCategory";
 
 export const router = Router();
 
@@ -24,9 +25,7 @@ router.get("/categories", listCategories);
 
 router.post("/categories", createCategories);
 
-router.get("/categories/:id", (req, res) => {
-  res.send("OK");
-});
+router.get("/categories/:categoryId/products", listProductsByCategory);
 
 router.get("/products", listProducts);
 
