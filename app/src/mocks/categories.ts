@@ -19,4 +19,24 @@ export const categories = [
     name: "Promoções",
     icon: "🏷",
   },
+  {
+    _id: "6372d5dcf9ebasdda354700c94",
+    name: "Promoções",
+    icon: "🏷",
+  },
+  {
+    _id: "6372d5dcf9ebdda3547hgf00c94",
+    name: "Promoções",
+    icon: "🏷",
+  },
+  {
+    _id: "6372d5dcf9ebdda354ff700c94",
+    name: "Promoções",
+    icon: "🏷",
+  },
+  {
+    _id: "6372d5dcf9ebdda354700csa94",
+    name: "Promoções",
+    icon: "🏷",
+  },
 ];

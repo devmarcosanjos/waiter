@@ -1,10 +1,12 @@
+import { Categories } from "../Categories";
 import { Header } from "../Header";
+import { Menu } from "../Menu";
 import {
   CategoriesConteiner,
   Container,
   Footer,
   FooterContainer,
-  MenuItem,
+  MenuContainer,
 } from "./styles";
 
 export function Main() {
@@ -12,8 +14,12 @@ export function Main() {
     <>
       <Container>
         <Header />
-        <CategoriesConteiner></CategoriesConteiner>
-        <MenuItem></MenuItem>
+        <CategoriesConteiner>
+          <Categories />
+        </CategoriesConteiner>
+        <MenuContainer>
+          <Menu />
+        </MenuContainer>
       </Container>
       <Footer>
         <FooterContainer></FooterContainer>
