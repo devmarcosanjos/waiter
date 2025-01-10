@@ -52,3 +52,13 @@ export const ModalBody = styled.div`
     }
   }
 `;
+
+export const OrderDetails = styled.div`
+  margin-top: 32px;
+
+  > strong {
+    font-size: 14px;
+    font-weight: 600;
+    opacity: 0.8;
+  }
+`;
