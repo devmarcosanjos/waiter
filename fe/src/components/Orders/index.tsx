@@ -11,21 +11,21 @@ const orders: Order[] = [
       {
         product: {
           name: "Pizza abc",
-          imagePath: "teste.png",
+          imagePath: "1736432707539-quatro-queijos.png",
           price: 40,
         },
         quantity: 3,
         _id: "1212121212122",
       },
-      // {
-      //   product: {
-      //     name: "Coca cola",
-      //     imagePath: "ushauisha.png",
-      //     price: 7,
-      //   },
-      //   quantity: 1,
-      //   _id: "1212121212123",
-      // },
+      {
+        product: {
+          name: "Coca cola",
+          imagePath: "1736434933113-coca-cola.png",
+          price: 7,
+        },
+        quantity: 1,
+        _id: "1212121212123",
+      },
     ],
   },
 ];
