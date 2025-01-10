@@ -10,6 +10,10 @@ interface OrderModalProps {
 export function OrderModal({ visible, order }: OrderModalProps) {
   if (!visible || !order) return null;
 
+  const total = order.products.reduce((total, { product, quantity }) => {
+    return total + product.price * quantity;
+  }, 0);
+
   return (
     <Overlay>
       <ModalBody>
@@ -53,6 +57,10 @@ export function OrderModal({ visible, order }: OrderModalProps) {
                 </div>
               </div>
             ))}
+          </div>
+          <div className="total">
+            <span>Total</span>
+            <strong>{formatCurrency(total)}</strong>
           </div>
         </OrderDetails>
       </ModalBody>
