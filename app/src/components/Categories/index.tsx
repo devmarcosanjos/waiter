@@ -5,10 +5,11 @@ import { Category, Icon } from "./styles";
 import { FlatList } from "react-native";
 
 export function Categories() {
-  const [selectedCategory, setSelectCategory] = useState("");
+  const [selectedCategory, setSelectCategory] = useState(" ");
 
   function handleSelectCategory(categoryId: string) {
-    setSelectCategory(categoryId);
+    const category = selectedCategory === categoryId ? " d" : categoryId;
+    setSelectCategory(category);
   }
 
   return (
