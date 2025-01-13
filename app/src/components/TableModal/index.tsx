@@ -4,9 +4,13 @@ import { Form, Header, Input, ModalBody, Overlay } from "./styles";
 import { Close } from "../Icons/Close";
 import { Button } from "../Button";
 
-export function TableModal() {
+interface TableModalProps {
+  visible: boolean;
+}
+
+export function TableModal({ visible }: TableModalProps) {
   return (
-    <Modal transparent>
+    <Modal transparent visible={visible}>
       <Overlay behavior={Platform.OS === "android" ? "height" : "padding"}>
         <ModalBody>
           <Header>
