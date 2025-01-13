@@ -2,6 +2,7 @@ import { Button } from "../Button";
 import { Categories } from "../Categories";
 import { Header } from "../Header";
 import { Menu } from "../Menu";
+import { TableModal } from "../TableModal";
 import {
   CategoriesConteiner,
   Container,
@@ -27,6 +28,8 @@ export function Main() {
           <Button onPress={() => alert("Novo pedido")}>Novo Pedido</Button>
         </FooterContainer>
       </Footer>
+
+      <TableModal />
     </>
   );
 }
