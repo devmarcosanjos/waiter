@@ -3,20 +3,32 @@ import { Text } from "../Text";
 import { Form, Header, Input, ModalBody, Overlay } from "./styles";
 import { Close } from "../Icons/Close";
 import { Button } from "../Button";
+import { setStatusBarStyle } from "expo-status-bar";
+import { useState } from "react";
 
 interface TableModalProps {
   visible: boolean;
+  onClose: () => void;
+
+  onSave: (table: string) => void;
 }
 
-export function TableModal({ visible }: TableModalProps) {
+export function TableModal({ visible, onClose, onSave }: TableModalProps) {
+  const [table, setTable] = useState("");
+
+  function handleSave() {
+    onSave(table);
+    onClose();
+  }
+
   return (
-    <Modal transparent visible={visible}>
+    <Modal transparent visible={visible} animationType="fade">
       <Overlay behavior={Platform.OS === "android" ? "height" : "padding"}>
         <ModalBody>
           <Header>
             <Text weight="600">Informa a mesa</Text>
 
-            <TouchableOpacity>
+            <TouchableOpacity onPress={onClose}>
               <Close color="#666" />
             </TouchableOpacity>
           </Header>
@@ -26,10 +38,13 @@ export function TableModal({ visible }: TableModalProps) {
               placeholder="Número da mesa"
               placeholderTextColor="#666"
               keyboardType="number-pad"
+              onChangeText={setTable}
             />
           </Form>
 
-          <Button onPress={() => alert("salvar")}>Salvar</Button>
+          <Button onPress={handleSave} disabled={table.length === 0}>
+            Salvar
+          </Button>
         </ModalBody>
       </Overlay>
     </Modal>
