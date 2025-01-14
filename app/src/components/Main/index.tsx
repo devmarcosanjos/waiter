@@ -23,7 +23,7 @@ export function Main() {
   return (
     <>
       <Container>
-        <Header />
+        <Header selectTable={selectTable} />
         <CategoriesConteiner>
           <Categories />
         </CategoriesConteiner>
