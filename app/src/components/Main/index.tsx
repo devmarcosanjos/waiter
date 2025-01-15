@@ -11,10 +11,23 @@ import {
   FooterContainer,
   MenuContainer,
 } from "./styles";
+import { Cart } from "../Cart";
+import { CartItem } from "../../types/cardItem";
+import { products } from "../../mocks/products";
 
 export function Main() {
   const [isTableModalVisible, setIsTableModalVisible] = useState(false);
   const [selectTable, setSelectTable] = useState("");
+  const [cardItems, setCartItems] = useState<CartItem[]>([
+    {
+      quantity: 1,
+      product: products[0],
+    },
+    {
+      quantity: 2,
+      product: products[1],
+    },
+  ]);
 
   function handleSaveTable(table: string) {
     setSelectTable(table);
@@ -42,6 +55,7 @@ export function Main() {
               Novo Pedido
             </Button>
           )}
+          {selectTable && <Cart cartItems={cardItems} />}
         </FooterContainer>
       </Footer>
 
