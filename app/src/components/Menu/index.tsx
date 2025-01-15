@@ -1,47 +1,66 @@
-import { FlatList, TouchableOpacity } from "react-native";
+import { FlatList } from "react-native";
 import { products } from "../../mocks/products";
 import { Text } from "../Text";
 import {
   AddToCartButton,
   Image,
-  Product,
+  ProductContainer,
   ProductDetails,
   Separator,
 } from "./styles";
 import { formatCurrency } from "../../utils/formatCurrency";
 import { PlusCircle } from "../Icons/PlusCircle";
+import { ProductModal } from "../ProductModal";
+import { useState } from "react";
+import { Product } from "../../types/product";
 
 export function Menu() {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectProduct, setSelectProduct] = useState<null | Product>(null);
+
+  function handleOpenModal(product: Product) {
+    setIsModalVisible(true);
+    setSelectProduct(product);
+  }
+
   return (
-    <FlatList
-      data={products}
-      style={{ marginTop: 32 }}
-      ItemSeparatorComponent={Separator}
-      contentContainerStyle={{ paddingHorizontal: 24 }}
-      keyExtractor={(products) => products._id}
-      renderItem={({ item: product }) => (
-        <Product>
-          <Image
-            source={{
-              uri: `https://448a-186-194-148-5.ngrok-free.app/uploads/${product.imagePath}`,
-            }}
-          />
+    <>
+      <ProductModal
+        visible={isModalVisible}
+        onClose={() => setIsModalVisible(false)}
+        product={selectProduct}
+      />
 
-          <ProductDetails>
-            <Text weight="600">{product.name}</Text>
-            <Text color="#666" size={14} style={{ marginVertical: 8 }}>
-              {product.description}
-            </Text>
-            <Text size={14} weight="600">
-              {formatCurrency(product.price)}
-            </Text>
-          </ProductDetails>
+      <FlatList
+        data={products}
+        style={{ marginTop: 32 }}
+        ItemSeparatorComponent={Separator}
+        contentContainerStyle={{ paddingHorizontal: 24 }}
+        keyExtractor={(products) => products._id}
+        renderItem={({ item: product }) => (
+          <ProductContainer onPress={() => handleOpenModal(product)}>
+            <Image
+              source={{
+                uri: `https://448a-186-194-148-5.ngrok-free.app/uploads/${product.imagePath}`,
+              }}
+            />
 
-          <AddToCartButton>
-            <PlusCircle />
-          </AddToCartButton>
-        </Product>
-      )}
-    />
+            <ProductDetails>
+              <Text weight="600">{product.name}</Text>
+              <Text color="#666" size={14} style={{ marginVertical: 8 }}>
+                {product.description}
+              </Text>
+              <Text size={14} weight="600">
+                {formatCurrency(product.price)}
+              </Text>
+            </ProductDetails>
+
+            <AddToCartButton>
+              <PlusCircle />
+            </AddToCartButton>
+          </ProductContainer>
+        )}
+      />
+    </>
   );
 }
