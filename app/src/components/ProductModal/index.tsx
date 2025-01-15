@@ -1,7 +1,14 @@
-import { Modal } from "react-native";
+import { FlatList, Modal } from "react-native";
 import { Text } from "../Text";
 import { Product } from "../../types/product";
-import { CloseButton, Header, Image, ModalBody } from "./styles";
+import {
+  CloseButton,
+  Header,
+  Igredient,
+  Image,
+  IngredientsContainer,
+  ModalBody,
+} from "./styles";
 import { Close } from "../Icons/Close";
 
 interface ProductModal {
@@ -39,6 +46,27 @@ export function ProductModal({ visible, onClose, product }: ProductModal) {
           <Text color="#666" style={{ marginTop: 8 }}>
             {product.description}
           </Text>
+
+          <IngredientsContainer>
+            <Text weight="600" color="#666">
+              Ingredientes
+            </Text>
+
+            <FlatList
+              data={product.ingredients}
+              style={{ marginTop: 16 }}
+              keyExtractor={(ingredient) => ingredient._id}
+              showsVerticalScrollIndicator={false}
+              renderItem={({ item: ingredient }) => (
+                <Igredient>
+                  <Text>{ingredient.icon}</Text>
+                  <Text size={14} color="#666" style={{ marginLeft: 20 }}>
+                    {ingredient.name}
+                  </Text>
+                </Igredient>
+              )}
+            />
+          </IngredientsContainer>
         </Header>
       </ModalBody>
     </Modal>
