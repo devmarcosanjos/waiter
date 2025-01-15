@@ -51,7 +51,9 @@ export function ProductModal({ visible, onClose, product }: ProductModal) {
           <Text color="#666" style={{ marginTop: 8 }}>
             {product.description}
           </Text>
+        </Header>
 
+        {product.ingredients?.length > 0 && (
           <IngredientsContainer>
             <Text weight="600" color="#666">
               Ingredientes
@@ -73,7 +75,7 @@ export function ProductModal({ visible, onClose, product }: ProductModal) {
               )}
             />
           </IngredientsContainer>
-        </Header>
+        )}
       </ModalBody>
 
       <Footer>
