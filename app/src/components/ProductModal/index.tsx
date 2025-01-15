@@ -3,13 +3,18 @@ import { Text } from "../Text";
 import { Product } from "../../types/product";
 import {
   CloseButton,
+  Footer,
+  FooterContainer,
   Header,
   Igredient,
   Image,
   IngredientsContainer,
   ModalBody,
+  PriceContainer,
 } from "./styles";
 import { Close } from "../Icons/Close";
+import { formatCurrency } from "../../utils/formatCurrency";
+import { Button } from "../Button";
 
 interface ProductModal {
   visible: boolean;
@@ -57,6 +62,7 @@ export function ProductModal({ visible, onClose, product }: ProductModal) {
               style={{ marginTop: 16 }}
               keyExtractor={(ingredient) => ingredient._id}
               showsVerticalScrollIndicator={false}
+              contentContainerStyle={{ paddingBottom: 200 }}
               renderItem={({ item: ingredient }) => (
                 <Igredient>
                   <Text>{ingredient.icon}</Text>
@@ -69,6 +75,18 @@ export function ProductModal({ visible, onClose, product }: ProductModal) {
           </IngredientsContainer>
         </Header>
       </ModalBody>
+
+      <Footer>
+        <FooterContainer>
+          <PriceContainer>
+            <Text color="#666">Preço</Text>
+            <Text size={20} weight="600">
+              {formatCurrency(product.price)}
+            </Text>
+          </PriceContainer>
+          <Button onPress={() => alert("add pedido")}>Adicionar Pedido</Button>
+        </FooterContainer>
+      </Footer>
     </Modal>
   );
 }
