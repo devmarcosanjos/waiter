@@ -15,6 +15,7 @@ import { Cart } from "../Cart";
 import { CartItem } from "../../types/cardItem";
 import { products } from "../../mocks/products";
 import { Product } from "../../types/product";
+import { Item } from "../Cart/style";
 
 export function Main() {
   const [isTableModalVisible, setIsTableModalVisible] = useState(false);
@@ -39,7 +40,52 @@ export function Main() {
   }
 
   function handleAddToCard(product: Product) {
-    alert(product.name);
+    if (!selectTable) {
+      setIsTableModalVisible(true);
+    }
+
+    setCartItems((prevState) => {
+      const itemIndex = prevState.findIndex(
+        (cardItem) => cardItem.product._id === product._id
+      );
+
+      if (itemIndex < 0) {
+        return prevState.concat({
+          quantity: 1,
+          product,
+        });
+      }
+
+      const newCardItems = [...prevState];
+      newCardItems[itemIndex] = {
+        ...newCardItems[itemIndex],
+        quantity: newCardItems[itemIndex].quantity + 1,
+      };
+
+      return newCardItems;
+    });
+  }
+
+  function handleDecrementCardItem(product: Product) {
+    setCartItems((prevState) => {
+      const itemIndex = prevState.findIndex(
+        (cardItem) => cardItem.product._id === product._id
+      );
+      const item = prevState[itemIndex];
+      const newCardItems = [...prevState];
+
+      if (item.quantity === 1) {
+        newCardItems.splice(itemIndex, 1);
+
+        return newCardItems;
+      }
+
+      newCardItems[itemIndex] = {
+        ...item,
+        quantity: item.quantity - 1,
+      };
+      return newCardItems;
+    });
   }
 
   return (
@@ -60,7 +106,13 @@ export function Main() {
               Novo Pedido
             </Button>
           )}
-          {selectTable && <Cart cartItems={cardItems} />}
+          {selectTable && (
+            <Cart
+              cartItems={cardItems}
+              onAdd={handleAddToCard}
+              onDecrement={handleDecrementCardItem}
+            />
+          )}
         </FooterContainer>
       </Footer>
 

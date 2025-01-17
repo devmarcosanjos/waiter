@@ -16,12 +16,18 @@ import { PlusCircle } from "../Icons/PlusCircle";
 import { CheckCircle } from "../Icons/CheckCircle";
 import { MinusCircle } from "../Icons/MinusCircle";
 import { Button } from "../Button";
+import { Product } from "../../types/product";
 
 interface CartProps {
   cartItems: CartItem[];
+  onAdd: (product: Product) => void;
+  onDecrement: (product: Product) => void;
 }
 
-export function Cart({ cartItems }: CartProps) {
+export function Cart({ cartItems, onAdd, onDecrement }: CartProps) {
+  const total = cartItems.reduce((acc, cartItem) => {
+    return acc + cartItem.quantity * cartItem.product.price;
+  }, 0);
   return (
     <>
       {cartItems.length > 0 && (
@@ -56,10 +62,13 @@ export function Cart({ cartItems }: CartProps) {
                 </ProductDetails>
               </ProductContainer>
               <Action>
-                <TouchableOpacity style={{ marginRight: 24 }}>
+                <TouchableOpacity
+                  style={{ marginRight: 24 }}
+                  onPress={() => onAdd(cardItem.product)}
+                >
                   <PlusCircle />
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => onDecrement(cardItem.product)}>
                   <MinusCircle />
                 </TouchableOpacity>
               </Action>
@@ -73,7 +82,7 @@ export function Cart({ cartItems }: CartProps) {
             <>
               <Text color="#666">Total</Text>
               <Text size={20} weight="600">
-                {formatCurrency(120)}
+                {formatCurrency(total)}
               </Text>
             </>
           ) : (
