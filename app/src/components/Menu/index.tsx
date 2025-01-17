@@ -14,7 +14,11 @@ import { ProductModal } from "../ProductModal";
 import { useState } from "react";
 import { Product } from "../../types/product";
 
-export function Menu() {
+interface MenuProps {
+  onAddToCard: (product: Product) => void;
+}
+
+export function Menu({ onAddToCard }: MenuProps) {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectProduct, setSelectProduct] = useState<null | Product>(null);
 
@@ -55,7 +59,7 @@ export function Menu() {
               </Text>
             </ProductDetails>
 
-            <AddToCartButton>
+            <AddToCartButton onPress={() => onAddToCard(product)}>
               <PlusCircle />
             </AddToCartButton>
           </ProductContainer>

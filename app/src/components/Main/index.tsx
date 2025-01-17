@@ -14,6 +14,7 @@ import {
 import { Cart } from "../Cart";
 import { CartItem } from "../../types/cardItem";
 import { products } from "../../mocks/products";
+import { Product } from "../../types/product";
 
 export function Main() {
   const [isTableModalVisible, setIsTableModalVisible] = useState(false);
@@ -37,6 +38,10 @@ export function Main() {
     setSelectTable("");
   }
 
+  function handleAddToCard(product: Product) {
+    alert(product.name);
+  }
+
   return (
     <>
       <Container>
@@ -45,7 +50,7 @@ export function Main() {
           <Categories />
         </CategoriesConteiner>
         <MenuContainer>
-          <Menu />
+          <Menu onAddToCard={handleAddToCard} />
         </MenuContainer>
       </Container>
       <Footer>
