@@ -33,6 +33,7 @@ export function Menu({ onAddToCard }: MenuProps) {
         visible={isModalVisible}
         onClose={() => setIsModalVisible(false)}
         product={selectProduct}
+        onAddToCard={onAddToCard}
       />
 
       <FlatList

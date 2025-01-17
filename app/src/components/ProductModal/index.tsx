@@ -21,10 +21,21 @@ interface ProductModal {
   onClose: () => void;
 
   product: null | Product;
+  onAddToCard: (product: Product) => void;
 }
 
-export function ProductModal({ visible, onClose, product }: ProductModal) {
+export function ProductModal({
+  visible,
+  onClose,
+  product,
+  onAddToCard,
+}: ProductModal) {
   if (!product) return null;
+
+  function handleAddToCard() {
+    onAddToCard(product!);
+    onClose();
+  }
 
   return (
     <Modal
@@ -86,7 +97,7 @@ export function ProductModal({ visible, onClose, product }: ProductModal) {
               {formatCurrency(product.price)}
             </Text>
           </PriceContainer>
-          <Button onPress={() => alert("add pedido")}>Adicionar Pedido</Button>
+          <Button onPress={handleAddToCard}>Adicionar ao pedido</Button>
         </FooterContainer>
       </Footer>
     </Modal>
