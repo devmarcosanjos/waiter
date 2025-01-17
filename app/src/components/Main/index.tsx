@@ -37,6 +37,7 @@ export function Main() {
 
   function handleCancelOrder() {
     setSelectTable("");
+    setCartItems([]);
   }
 
   function handleAddToCard(product: Product) {
