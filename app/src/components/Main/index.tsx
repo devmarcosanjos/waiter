@@ -6,6 +6,7 @@ import { Menu } from "../Menu";
 import { TableModal } from "../TableModal";
 import {
   CategoriesConteiner,
+  CenterContainer,
   Container,
   Footer,
   FooterContainer,
@@ -16,20 +17,13 @@ import { CartItem } from "../../types/cardItem";
 import { products } from "../../mocks/products";
 import { Product } from "../../types/product";
 import { Item } from "../Cart/style";
+import { ActivityIndicator } from "react-native";
 
 export function Main() {
   const [isTableModalVisible, setIsTableModalVisible] = useState(false);
   const [selectTable, setSelectTable] = useState("");
-  const [cardItems, setCartItems] = useState<CartItem[]>([
-    {
-      quantity: 1,
-      product: products[0],
-    },
-    {
-      quantity: 2,
-      product: products[1],
-    },
-  ]);
+  const [cardItems, setCartItems] = useState<CartItem[]>([]);
+  const [isLoading] = useState(false);
 
   function handleSaveTable(table: string) {
     setSelectTable(table);
@@ -98,17 +92,29 @@ export function Main() {
     <>
       <Container>
         <Header selectTable={selectTable} onCancelOrder={handleCancelOrder} />
-        <CategoriesConteiner>
-          <Categories />
-        </CategoriesConteiner>
-        <MenuContainer>
-          <Menu onAddToCard={handleAddToCard} />
-        </MenuContainer>
+        {isLoading && (
+          <CenterContainer>
+            <ActivityIndicator color="#D73035" size="large" />
+          </CenterContainer>
+        )}
+        {!isLoading && (
+          <>
+            <CategoriesConteiner>
+              <Categories />
+            </CategoriesConteiner>
+            <MenuContainer>
+              <Menu onAddToCard={handleAddToCard} />
+            </MenuContainer>
+          </>
+        )}
       </Container>
       <Footer>
         <FooterContainer>
           {!selectTable && (
-            <Button onPress={() => setIsTableModalVisible(true)}>
+            <Button
+              onPress={() => setIsTableModalVisible(true)}
+              disabled={isLoading}
+            >
               Novo Pedido
             </Button>
           )}
