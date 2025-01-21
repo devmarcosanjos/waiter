@@ -89,6 +89,11 @@ export function Main() {
     });
   }
 
+  function handleConfirmOrder() {
+    setSelectTable("");
+    setCartItems([]);
+  }
+
   return (
     <>
       <Container>
@@ -112,6 +117,7 @@ export function Main() {
               cartItems={cardItems}
               onAdd={handleAddToCard}
               onDecrement={handleDecrementCardItem}
+              onConfirmOrder={handleConfirmOrder}
             />
           )}
         </FooterContainer>
