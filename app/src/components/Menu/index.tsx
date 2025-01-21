@@ -9,16 +9,17 @@ import {
   Separator,
 } from "./styles";
 import { formatCurrency } from "../../utils/formatCurrency";
-import { PlusCircle } from "../Icons/PlusCircle";
+import { PlusCircle } from "../../assets/Icons/PlusCircle";
 import { ProductModal } from "../ProductModal";
 import { useState } from "react";
 import { Product } from "../../types/product";
 
 interface MenuProps {
   onAddToCard: (product: Product) => void;
+  products: Product[];
 }
 
-export function Menu({ onAddToCard }: MenuProps) {
+export function Menu({ onAddToCard, products }: MenuProps) {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectProduct, setSelectProduct] = useState<null | Product>(null);
 

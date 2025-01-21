@@ -1,6 +1,6 @@
 import { Modal } from "react-native";
 import { Container, OkButton } from "./styles";
-import { CheckCircle } from "../Icons/CheckCircle";
+import { CheckCircle } from "../../assets/Icons/CheckCircle";
 import { Text } from "../Text";
 
 interface OrderConfirmedModalProps {

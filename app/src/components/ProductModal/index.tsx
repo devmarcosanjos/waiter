@@ -12,7 +12,7 @@ import {
   ModalBody,
   PriceContainer,
 } from "./styles";
-import { Close } from "../Icons/Close";
+import { Close } from "../../assets/Icons/Close";
 import { formatCurrency } from "../../utils/formatCurrency";
 import { Button } from "../Button";
 

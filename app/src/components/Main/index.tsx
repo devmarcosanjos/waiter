@@ -14,16 +14,19 @@ import {
 } from "./styles";
 import { Cart } from "../Cart";
 import { CartItem } from "../../types/cardItem";
-import { products } from "../../mocks/products";
+import { products as mockProducts } from "../../mocks/products";
 import { Product } from "../../types/product";
 import { Item } from "../Cart/style";
 import { ActivityIndicator } from "react-native";
+import { Empty } from "../../assets/Icons/Empty";
+import { Text } from "../Text";
 
 export function Main() {
   const [isTableModalVisible, setIsTableModalVisible] = useState(false);
   const [selectTable, setSelectTable] = useState("");
   const [cardItems, setCartItems] = useState<CartItem[]>([]);
   const [isLoading] = useState(false);
+  const [products] = useState<Product[]>([]);
 
   function handleSaveTable(table: string) {
     setSelectTable(table);
@@ -102,9 +105,18 @@ export function Main() {
             <CategoriesConteiner>
               <Categories />
             </CategoriesConteiner>
-            <MenuContainer>
-              <Menu onAddToCard={handleAddToCard} />
-            </MenuContainer>
+            {products.length > 0 ? (
+              <MenuContainer>
+                <Menu onAddToCard={handleAddToCard} products={products} />
+              </MenuContainer>
+            ) : (
+              <CenterContainer>
+                <Empty />
+                <Text color="#666" style={{ marginTop: 24 }}>
+                  Nenhum produto foi encontrado
+                </Text>
+              </CenterContainer>
+            )}
           </>
         )}
       </Container>

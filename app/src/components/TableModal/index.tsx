@@ -1,7 +1,7 @@
 import { Modal, Platform, TouchableOpacity } from "react-native";
 import { Text } from "../Text";
 import { Form, Header, Input, ModalBody, Overlay } from "./styles";
-import { Close } from "../Icons/Close";
+import { Close } from "../../assets/Icons/Close";
 import { Button } from "../Button";
 import { setStatusBarStyle } from "expo-status-bar";
 import { useState } from "react";

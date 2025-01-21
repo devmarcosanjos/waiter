@@ -12,9 +12,9 @@ import {
 } from "./style";
 import { Text } from "../Text";
 import { formatCurrency } from "../../utils/formatCurrency";
-import { PlusCircle } from "../Icons/PlusCircle";
-import { CheckCircle } from "../Icons/CheckCircle";
-import { MinusCircle } from "../Icons/MinusCircle";
+import { PlusCircle } from "../../assets/Icons/PlusCircle";
+import { CheckCircle } from "../../assets/Icons/CheckCircle";
+import { MinusCircle } from "../../assets/Icons/MinusCircle";
 import { Button } from "../Button";
 import { Product } from "../../types/product";
 import { OrderConfirmedModal } from "../OrderConfirmedModal";
