@@ -20,6 +20,7 @@ import { Empty } from "../../assets/Icons/Empty";
 import { Text } from "../Text";
 import { Category } from "../../types/category";
 import axios from "axios";
+import { api } from "../../utils/api";
 
 export function Main() {
   const [isTableModalVisible, setIsTableModalVisible] = useState(false);
@@ -92,15 +93,20 @@ export function Main() {
     setCartItems([]);
   }
 
+  async function handleSelectCategory(categoryId: string) {
+    const { data } = await api.get(`/categories/${categoryId}/products`);
+
+    setProducts(data);
+  }
+
   useEffect(() => {
-    Promise.all([
-      axios.get("https://3a58-189-113-53-169.ngrok-free.app/categories"),
-      axios.get("https://3a58-189-113-53-169.ngrok-free.app/products"),
-    ]).then(([categoriesResponse, productsResponse]) => {
-      setCategories(categoriesResponse.data);
-      setProducts(productsResponse.data);
-      setIsLoading(false);
-    });
+    Promise.all([api.get("/categories"), api.get("/products")]).then(
+      ([categoriesResponse, productsResponse]) => {
+        setCategories(categoriesResponse.data);
+        setProducts(productsResponse.data);
+        setIsLoading(false);
+      }
+    );
   }, []);
 
   return (
@@ -115,7 +121,10 @@ export function Main() {
         {!isLoading && (
           <>
             <CategoriesConteiner>
-              <Categories categories={categories} />
+              <Categories
+                categories={categories}
+                onSelectCategory={handleSelectCategory}
+              />
             </CategoriesConteiner>
             {products.length > 0 ? (
               <MenuContainer>
