@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "../Button";
 import { Categories } from "../Categories";
 import { Header } from "../Header";
@@ -19,14 +19,15 @@ import { ActivityIndicator } from "react-native";
 import { Empty } from "../../assets/Icons/Empty";
 import { Text } from "../Text";
 import { Category } from "../../types/category";
+import axios from "axios";
 
 export function Main() {
   const [isTableModalVisible, setIsTableModalVisible] = useState(false);
   const [selectTable, setSelectTable] = useState("");
   const [cardItems, setCartItems] = useState<CartItem[]>([]);
-  const [isLoading] = useState(false);
-  const [products] = useState<Product[]>([]);
-  const [categories] = useState<Category[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
 
   function handleSaveTable(table: string) {
     setSelectTable(table);
@@ -90,6 +91,17 @@ export function Main() {
     setSelectTable("");
     setCartItems([]);
   }
+
+  useEffect(() => {
+    Promise.all([
+      axios.get("https://3a58-189-113-53-169.ngrok-free.app/categories"),
+      axios.get("https://3a58-189-113-53-169.ngrok-free.app/products"),
+    ]).then(([categoriesResponse, productsResponse]) => {
+      setCategories(categoriesResponse.data);
+      setProducts(productsResponse.data);
+      setIsLoading(false);
+    });
+  }, []);
 
   return (
     <>

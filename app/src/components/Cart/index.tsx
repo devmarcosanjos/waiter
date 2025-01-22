@@ -65,7 +65,7 @@ export function Cart({
               <ProductContainer>
                 <Image
                   source={{
-                    uri: `https://448a-186-194-148-5.ngrok-free.app/uploads/${cardItem.product.imagePath}`,
+                    uri: `https://3a58-189-113-53-169.ngrok-free.app/uploads/${cardItem.product.imagePath}`,
                   }}
                 />
                 <QuantityContainer>
