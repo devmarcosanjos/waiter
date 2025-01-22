@@ -175,6 +175,7 @@ export function Main() {
               onAdd={handleAddToCard}
               onDecrement={handleDecrementCardItem}
               onConfirmOrder={handleConfirmOrder}
+              selectTable={selectTable}
             />
           )}
         </FooterContainer>
