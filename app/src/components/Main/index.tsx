@@ -94,7 +94,11 @@ export function Main() {
   }
 
   async function handleSelectCategory(categoryId: string) {
-    const { data } = await api.get(`/categories/${categoryId}/products`);
+    const route = !categoryId
+      ? "/products"
+      : `/categories/${categoryId}/products`;
+
+    const { data } = await api.get(route);
 
     setProducts(data);
   }
