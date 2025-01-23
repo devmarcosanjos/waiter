@@ -3,6 +3,7 @@ import "./styles";
 import { Board, OrdersContainer } from "./styles";
 import { OrderModal } from "../OrderModal";
 import { useState } from "react";
+import { api } from "../../utils/api";
 interface OrderBoardProps {
   icon: string;
   title: string;
@@ -10,6 +11,7 @@ interface OrderBoardProps {
 }
 
 export function OrderBoard({ icon, title, orders }: OrderBoardProps) {
+  const [isLoading, setIsLoading] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectOrder, setSelectOrder] = useState<null | Order>(null);
   function handleOpenModal(order: Order) {
@@ -22,12 +24,22 @@ export function OrderBoard({ icon, title, orders }: OrderBoardProps) {
     setSelectOrder(null);
   }
 
+  async function handleCancelModal() {
+    setIsLoading(true);
+    await api.delete(`/orders/${selectOrder?._id}`);
+
+    setIsLoading(false);
+    setIsModalVisible(false);
+  }
+
   return (
     <Board>
       <OrderModal
+        onCancelOrder={handleCancelModal}
         visible={isModalVisible}
         order={selectOrder}
         onClose={handleCloseModal}
+        isLoading={isLoading}
       />
 
       <header>
