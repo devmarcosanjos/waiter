@@ -8,9 +8,16 @@ interface OrderBoardProps {
   icon: string;
   title: string;
   orders: Order[];
+
+  cancelOrder: (orderId: string) => void;
 }
 
-export function OrderBoard({ icon, title, orders }: OrderBoardProps) {
+export function OrderBoard({
+  icon,
+  title,
+  orders,
+  cancelOrder,
+}: OrderBoardProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectOrder, setSelectOrder] = useState<null | Order>(null);
@@ -26,8 +33,11 @@ export function OrderBoard({ icon, title, orders }: OrderBoardProps) {
 
   async function handleCancelModal() {
     setIsLoading(true);
-    await api.delete(`/orders/${selectOrder?._id}`);
+    if (selectOrder) {
+      await api.delete(`/orders/${selectOrder._id}`);
+    }
 
+    cancelOrder(selectOrder!._id);
     setIsLoading(false);
     setIsModalVisible(false);
   }

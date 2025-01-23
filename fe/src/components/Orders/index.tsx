@@ -7,6 +7,12 @@ import { api } from "../../utils/api";
 export function Orders() {
   const [orders, setOrders] = useState<Order[]>([]);
 
+  function handleCancelOrder(orderId: string) {
+    setOrders((prevState) =>
+      prevState.filter((order) => order._id !== orderId)
+    );
+  }
+
   useEffect(() => {
     api.get("/orders").then(({ data }) => {
       console.log("API Response:", data);
@@ -22,9 +28,24 @@ export function Orders() {
 
   return (
     <Container>
-      <OrderBoard icon="🕐" title="Fila de espera" orders={waitting} />
-      <OrderBoard icon="🧑‍🍳" title="Em preparação" orders={inProduction} />
-      <OrderBoard icon="✅" title="Pronto" orders={done} />
+      <OrderBoard
+        icon="🕐"
+        title="Fila de espera"
+        orders={waitting}
+        cancelOrder={handleCancelOrder}
+      />
+      <OrderBoard
+        icon="🧑‍🍳"
+        title="Em preparação"
+        orders={inProduction}
+        cancelOrder={handleCancelOrder}
+      />
+      <OrderBoard
+        icon="✅"
+        title="Pronto"
+        orders={done}
+        cancelOrder={handleCancelOrder}
+      />
     </Container>
   );
 }
