@@ -4,6 +4,8 @@ import { OrderBoard } from "../OrdersBoard";
 import { Container } from "./styles";
 import { api } from "../../utils/api";
 
+import socketIo from "socket.io-client";
+
 export function Orders() {
   const [orders, setOrders] = useState<Order[]>([]);
 
@@ -23,8 +25,17 @@ export function Orders() {
 
   useEffect(() => {
     api.get("/orders").then(({ data }) => {
-      console.log("API Response:", data);
       setOrders(data);
+    });
+  }, []);
+
+  useEffect(() => {
+    const socket = socketIo("http://localhost:3001", {
+      transports: ["websocket"],
+    });
+
+    socket.on("orders@new", (order) => {
+      setOrders((prevState) => prevState.concat(order));
     });
   }, []);
 
