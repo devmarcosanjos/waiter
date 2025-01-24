@@ -11,6 +11,8 @@ interface OrderBoardProps {
   orders: Order[];
 
   cancelOrder: (orderId: string) => void;
+
+  onChangeOrderStatus: (orderId: string, status: Order["status"]) => void;
 }
 
 export function OrderBoard({
@@ -18,6 +20,7 @@ export function OrderBoard({
   title,
   orders,
   cancelOrder,
+  onChangeOrderStatus,
 }: OrderBoardProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -44,6 +47,22 @@ export function OrderBoard({
     setIsModalVisible(false);
   }
 
+  async function handleChangeOrderStatus() {
+    setIsLoading(true);
+
+    const status = selectOrder?.status === "WAITING" ? "IN_PRODUCTION" : "DONE";
+
+    await api.patch(`/orders/${selectOrder?._id}`, { status });
+
+    toast.success(
+      `O pedido da mesa ${selectOrder?.table} teve o pedido alterado!`
+    );
+
+    onChangeOrderStatus(selectOrder!._id, status);
+    setIsLoading(false);
+    setIsModalVisible(false);
+  }
+
   return (
     <Board>
       <OrderModal
@@ -52,6 +71,7 @@ export function OrderBoard({
         order={selectOrder}
         onClose={handleCloseModal}
         isLoading={isLoading}
+        onChangeOrderStatus={handleChangeOrderStatus}
       />
 
       <header>

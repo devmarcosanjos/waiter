@@ -9,6 +9,7 @@ interface OrderModalProps {
   onClose: () => void;
   onCancelOrder: () => void;
   isLoading: boolean;
+  onChangeOrderStatus: () => void;
 }
 
 export function OrderModal({
@@ -17,6 +18,7 @@ export function OrderModal({
   onClose,
   onCancelOrder,
   isLoading,
+  onChangeOrderStatus,
 }: OrderModalProps) {
   if (!visible || !order) return null;
 
@@ -67,7 +69,7 @@ export function OrderModal({
           <strong>Itens</strong>
           <div className="order-items">
             {order.products.map(({ product, quantity }) => (
-              <div className="item">
+              <div className="item" key={product.imagePath}>
                 <img
                   src={`http://localhost:3001/uploads/${product.imagePath}`}
                   alt={product.name}
@@ -88,10 +90,17 @@ export function OrderModal({
           </div>
         </OrderDetails>
         <Actions>
-          <button type="button" className="primary" disabled={isLoading}>
-            <span>🧑‍🍳</span>
-            <strong>Iniciar Produção</strong>
-          </button>
+          {order.status !== "DONE" && (
+            <button
+              type="button"
+              className="primary"
+              // disabled={isLoading}
+              onClick={onChangeOrderStatus}
+            >
+              <span>🧑‍🍳</span>
+              <strong>Iniciar Produção</strong>
+            </button>
+          )}
           <button
             type="button"
             className="secondary"

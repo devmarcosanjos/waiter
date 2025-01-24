@@ -13,6 +13,14 @@ export function Orders() {
     );
   }
 
+  function handleOrderStatusChange(orderId: string, status: Order["status"]) {
+    setOrders((prevState) =>
+      prevState.map((order) =>
+        order._id === orderId ? { ...order, status } : order
+      )
+    );
+  }
+
   useEffect(() => {
     api.get("/orders").then(({ data }) => {
       console.log("API Response:", data);
@@ -33,18 +41,21 @@ export function Orders() {
         title="Fila de espera"
         orders={waitting}
         cancelOrder={handleCancelOrder}
+        onChangeOrderStatus={handleOrderStatusChange}
       />
       <OrderBoard
         icon="🧑‍🍳"
         title="Em preparação"
         orders={inProduction}
         cancelOrder={handleCancelOrder}
+        onChangeOrderStatus={handleOrderStatusChange}
       />
       <OrderBoard
         icon="✅"
         title="Pronto"
         orders={done}
         cancelOrder={handleCancelOrder}
+        onChangeOrderStatus={handleOrderStatusChange}
       />
     </Container>
   );
